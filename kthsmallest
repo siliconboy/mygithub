@@ -1,0 +1,22 @@
+public class Solution {
+	// DO NOT MODIFY THE LIST. IT IS READ ONLY
+	public int kthsmallest(final List<Integer> a, int k) {
+	    PriorityQueue<Integer> klist = new PriorityQueue<>((x,y) -> y-x);
+	    
+	    for(Integer i : a){
+	        if(klist.size()<k){
+	            klist.add(i);
+	            
+	        }else
+	        {
+	            if(i<klist.peek()) {
+	                klist.poll();
+	                klist.add(i);
+	                
+	            }
+	        }
+	    }
+	    return klist.peek();
+	}
+
+}
