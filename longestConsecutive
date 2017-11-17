@@ -1,0 +1,32 @@
+public class Solution {
+	public int longestConsecutive(final List<Integer> a) {
+	    if(a.size() == 0) return 0;
+	    
+	    HashSet<Integer> set = new HashSet<Integer>();
+	    set.addAll(a);
+	    int max=0, count =0;
+	    for(Integer i : a){
+	        if(!set.contains(i)) continue;
+	        Integer up = i+1;
+	        Integer down = i-1;
+	        while(set.contains(up)){
+	            count++;
+	            set.remove(up);
+	            up++;
+	        }
+	        while(set.contains(down)){
+	            count++;
+	            set.remove(down);
+	            down--;
+	        }
+	        count++;
+	        set.remove(i);
+	        if(count>max){
+	          max =count;  
+	        } 
+	        count =0;
+	    }
+	    return max;
+
+	}
+}
