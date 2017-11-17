@@ -1,0 +1,59 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+	public ListNode subtract(ListNode a) {
+	    int size = 0;
+	    ListNode point = a;
+	    while(point !=null) {
+	        size++;
+	        
+	        point = point.next;
+	    }
+	    if(size<=1) return a;
+	    ListNode start = a;
+        
+	    int half = size/2;
+	    for(int i = 0; i<half; i++){
+	        start = start.next;
+	    }
+   	    start = reverse(start);
+	    
+
+        ListNode flist = a;
+        ListNode llist = start;
+	    for(int i =1; i<=half;i++) {
+	        
+	        flist.val = llist.val - flist.val;
+	        point = flist;
+	        flist = flist.next;
+	        llist = llist.next;
+	            
+	    }
+	    point.next = reverse(start);
+	    
+	    return a;
+	    
+	}
+	public ListNode reverse(ListNode start) {
+	    if( start.next ==null) return start;
+	    ListNode temp;
+	    ListNode newList = start;
+	    start =start.next;
+	    newList.next =null;
+	    while(start != null){
+	        temp = start;
+	        start = start.next;
+        
+	        temp.next = newList;
+	        newList = temp;
+	    }
+	    
+        return newList;	    
+	}
+}
