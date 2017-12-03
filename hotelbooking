@@ -1,0 +1,28 @@
+public class Solution {
+    public boolean hotel(ArrayList<Integer> arrive, ArrayList<Integer> depart, int K) {
+
+        Collections.sort(arrive);
+        Collections.sort(depart);
+        int count =0;
+        int out = Integer.MAX_VALUE;
+        int i=0,j=0;
+        while(i<arrive.size()&&j<arrive.size() && count<=K){
+            if(arrive.get(i) <depart.get(j)){
+                count++;
+                i++;
+            }else{
+                count--;
+                j++;
+            }
+
+        }
+        if(count>K) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+}
