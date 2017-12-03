@@ -1,0 +1,23 @@
+public class Solution {
+    public int[][] generate(int A) {
+                int[][] res = new int[A][A];
+        
+        int row;
+        for(int i = 0; i<A; i++){
+            int[] cols = new int[i+1];
+            cols[0]=1;
+            cols[i]=1;
+            //res[i][i] = 1;
+            //System.out.println("cols:" + cols.length);
+            for(int j =1; j<i;j++){
+                cols[j] = res[i-1][j-1]+ res[i-1][j];
+            //    System.out.println("cols:" + cols[j]);
+            }
+            
+            res[i] = cols;
+        //   System.out.println("res:" + res[i].length);
+        }
+        
+        return res;
+    }
+}
