@@ -1,0 +1,94 @@
+public class Solution {
+	public ArrayList<String> fullJustify(ArrayList<String> a, int b) {
+	    int count =0;
+	    ArrayList<String> res = new ArrayList<>();
+	    if(a.size()==0) return res;
+	    StringBuffer sb = new StringBuffer();
+	    int start=0;
+	    for( int i =0; i<a.size();i++){
+	        count = count+a.get(i).length();
+    //	    System.out.println("count:"+count);
+	        
+	        if(count >b){
+//        	    System.out.println("index:"+i +"size="+b+"count:"+count);
+//      	    System.out.println("st len:"+a.get(i).length());
+        	    int spaces = b-(count -a.get(i).length()-1);
+ //       	    System.out.println("spaces:"+spaces);
+	            handle(res, a, start, i-1, spaces, false);
+	            count =a.get(i).length();
+	            start = i;
+	        }
+	        count++; //gap
+	        
+	        
+    	    if((i==a.size()-1)&&count>0){
+    	        //special
+//    	        int spaces = b);
+	        //    System.out.println("start:"+start +"end:"+i+"spaces:"+spaces);
+	            handle(res, a, start, i, b, true);
+	        }
+
+	    }
+	    return res;
+	    
+	}
+	public void handle(ArrayList<String> res, ArrayList<String> source, int start, int end,
+	    int spaces, boolean last)
+	{
+	    
+	    int gap =0;
+	    int rgap=0;
+	    int gaps = end-start;
+	    int newgap =0;
+	    StringBuffer sb = new StringBuffer();
+
+	    if(last){
+
+    	    for(int i =0; i<end-start;i++){
+	            sb.append(source.get(start+i)+" ");
+	        }
+            sb.append(source.get(end));
+            int rem = spaces-sb.length();
+            sb.append(getSpace(rem));
+   //         System.out.println("last:" + sb.length() +" rem " + rem +"len:"+spaces);
+
+	    }else{
+    	    if(gaps ==0){
+	            gap=spaces;  
+	        }else{
+    	        gap = spaces/gaps;
+	          rgap = spaces%gaps;
+	        }
+	    for(int i =0; i<end-start;i++){
+	        sb.append(source.get(start+i)+" ");
+	        if(rgap>0){
+	            newgap = gap+1;
+	            rgap--;
+	        }else{
+	            newgap =gap;
+	        }
+//	   System.out.println("newgap:"+newgap);
+	        sb.append(getSpace(newgap));
+	    }
+        sb.append(source.get(end));
+    	    if(gaps==0){
+	           sb.append(getSpace(gap)); 
+	        }
+
+	    }
+ //       System.out.println(sb.toString());
+ //       System.out.println(sb.length());
+	    res.add(sb.toString());
+	}
+	
+	public String getSpace(int len){
+	    StringBuffer sb = new StringBuffer();
+//	    System.out.println("space size:"+len);
+
+	    for(int i =0; i<len;i++){
+	        sb.append(" ");
+	    }
+//	    System.out.println("space:"+sb.toString()+":");
+	    return sb.toString();
+	}
+}
