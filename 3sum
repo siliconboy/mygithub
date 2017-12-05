@@ -1,0 +1,35 @@
+public class Solution {
+	public int threeSumClosest(ArrayList<Integer> a, int b) {
+	    if(a.size()<3) return -1;
+	    int sum = a.get(0)+a.get(1)+a.get(2);
+	    Collections.sort(a);
+	    int left =0;
+	    int right=0;
+	    int gap = Math.abs(sum-b);
+	    for(int i = 0;i<a.size()-2;i++){
+	        left =i+1;
+	        right = a.size()-1;
+	        while(left<right){
+	            int tmp = a.get(i)+a.get(left)+a.get(right);
+	          //  if(tmp==b) return b;
+	            int newgap = Math.abs(tmp-b);
+	            if(newgap<gap){
+	                //System.out.println("sum:"+sum);
+	                sum = tmp;
+	                gap = newgap;
+	                //left++;
+	            }
+	            if(sum<b){
+	                
+	             left++;   
+	            }else{
+	                right--;
+	            }
+	            
+	        }
+	        
+	    }
+	    return sum;
+	   
+	}
+}
