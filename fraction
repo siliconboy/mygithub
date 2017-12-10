@@ -1,0 +1,56 @@
+public class Solution {
+	public String fractionToDecimal(int numerator, int denominator) {
+	    long res;
+	    
+	    if(numerator ==0) return "0";
+	    boolean sign = true;
+        if(numerator >0 && denominator<0 || numerator <0 && denominator>0){
+	            //-
+	            sign =false;
+        }
+	   
+        long num = Math.abs((long)numerator);
+        long dem = Math.abs((long)denominator);
+
+        StringBuffer sb = new StringBuffer();
+        res = num/dem;
+       
+        
+        HashMap<Long,Integer> map = new HashMap<>();
+        if(!sign){
+            sb.append("-");
+        }
+        sb.append((long)num/dem);
+        
+        long rem = num%dem;
+        
+        if(rem ==0){
+            return sb.toString();
+        }
+    
+            sb.append(".");
+          
+            map.put(rem,sb.length());
+            while(rem!=0){
+                res = rem*10/dem;
+
+                sb.append(res);
+                rem = (rem*10)%dem;
+                
+                if(map.containsKey(rem)){
+                        
+                   int cut = map.get(rem);
+                   sb.insert(cut,"(");
+        
+                   sb.append(")");
+                   return sb.toString();
+                }else{
+                    map.put(rem,sb.length());
+                }
+
+            }
+            // 87/22   3.9(54)
+
+	    return sb.toString();
+	}
+}
