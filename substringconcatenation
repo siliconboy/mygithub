@@ -1,0 +1,67 @@
+public class Solution {
+	public ArrayList<Integer> findSubstring(String a, final List<String> b) {
+	    ArrayList<Integer> res = new ArrayList<>();
+	    if(b.size()==0) return res;
+	    if(a.length()<b.size()*b.get(0).length()) return res;
+	    int wlen = b.get(0).length();
+	    int seglen = b.size()*wlen;
+	    
+	    HashMap<String, Integer> map = new HashMap<>();
+	    
+	    for(int i =0; i<b.size();i++){
+	        String item = b.get(i);
+	        if(map.containsKey(item)){
+	            map.put(item, map.get(item)+1);
+	        }else{
+	            map.put(item, 1);    
+	        }
+	    }
+	    int left =0;
+	    int right =0;
+	    while (left<=a.length()-seglen){
+	        String tmp = a.substring(left,left+wlen);
+	        if(map.containsKey(tmp)){
+	            right=left+seglen;
+	            String target = a.substring(left,right);
+	            if(isValid(target, b, wlen)){
+	                res.add(left);
+	                left++;// = right;
+	                
+	            }else{
+	                left++; //= left+wlen;
+	            }
+	        }else{
+	            left++; //=left+wlen;
+	        }
+	        
+	    }
+	    
+	    return res;
+	}
+	public boolean isValid(String target, List<String> b, int len){
+	    
+	     HashMap<String, Integer> map = new HashMap<>();
+	    
+	    for(int i =0; i<b.size();i++){
+	        String item = b.get(i);
+	        if(map.containsKey(item)){
+	            map.put(item, map.get(item)+1);
+	        }else{
+	            map.put(item, 1);    
+	        }
+	    }
+	    int pt =0;
+	    while (pt < target.length()){
+	        String tmp = target.substring(pt,pt+len);
+	        if(map.containsKey(tmp) && map.get(tmp)>0){
+	            map.put(tmp,map.get(tmp)-1);
+	            pt=pt+len;
+	        }else{
+	            return false;
+	        }
+	    }
+	    return true;
+	    
+	}
+	
+}
