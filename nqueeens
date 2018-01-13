@@ -1,0 +1,86 @@
+/*
+
+
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+N Queens: Example 1
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens’ placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+For example,
+There exist two distinct solutions to the 4-queens puzzle:
+
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+
+
+*/
+public class Solution {
+	public ArrayList<ArrayList<String>> solveNQueens(int a) {
+	    ArrayList<ArrayList<String>> res = new ArrayList<>();
+	    
+	    if(a<=1){
+	        ArrayList<String> tmp = new ArrayList<>();
+	        tmp.add("Q");
+	        res.add(tmp);
+	        return res;
+	    }
+	    
+	    int[] q = new int[a];
+        help(res, q, 0);	    
+	    
+	    return res;
+	}
+	
+	public void help(ArrayList<ArrayList<String>> res, int[] q, int k){
+	    //char[][] sol = new char[a][a];
+        int n = q.length;
+        if(k==n){
+          res.add(getSol(q));  
+        }else{ 
+        
+            for(int i=0;i<n;i++){
+                q[k]=i;
+                if(isValid(q,k)){
+                    help(res, q, k+1);
+                }
+            }
+        }
+	    
+	}
+	public boolean isValid(int[] q, int k){
+	    for(int i=0;i<k;i++){
+	        if(q[k] ==q[i]) return false;
+	        if(Math.abs(q[k] -q[i]) == Math.abs(k-i)) return false;
+	    }
+
+	    return true;
+	}
+	
+	public ArrayList<String> getSol(int[] q){
+        ArrayList<String> res = new ArrayList<>();
+	    for(int i=0;i<q.length;i++){
+
+    	    StringBuilder sb = new StringBuilder();
+	        for(int j=0;j<q.length;j++){
+	            sb.append('.');
+	        }
+
+
+	        sb.setCharAt(q[i],'Q');
+	        res.add(sb.toString());
+	    }
+	    return res;
+	}
+}
