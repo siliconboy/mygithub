@@ -1,0 +1,51 @@
+/*
+
+
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+The digit 0 maps to 0 itself.
+The digit 1 maps to 1 itself.
+
+Input: Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+Make sure the returned strings are lexicographically sorted.
+
+*/
+public ArrayList<String> letterCombinations(String a) {
+	    final String[] cmap = {"0", "1", "abc", "def", "ghi","jkl","mno","pqrs","tuv","wxyz"};
+	    
+	    ArrayList<String> res = new ArrayList<>();
+	    ArrayList<String> tmp = new ArrayList<>();
+	    for(int i=0;i<a.length();i++){
+	        int index = a.charAt(i)-'0';
+	        tmp.add(cmap[index]);
+	    } 
+	    for(int i=tmp.size()-1;i>=0;i--){
+	        res = build(res, tmp.get(i));
+	    }        
+	    
+	    
+	    return res;
+	}
+	public ArrayList<String> build(ArrayList<String> res, String source){
+	       ArrayList<String> tmp= new ArrayList<>();
+	       if(res.size()==0){
+	           for(int i=0;i<source.length();i++){
+	               res.add(""+source.charAt(i));
+	           }
+	           return res;
+	       }else{
+	           for(int j=0;j<source.length();j++){
+	               for(int i=0; i<res.size();i++){
+	                    tmp.add(source.charAt(j)+res.get(i));    
+	               }
+	           }
+	           return tmp;
+	       }
+	}
+	
+	
+}
