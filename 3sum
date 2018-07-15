@@ -1,35 +1,36 @@
 public class Solution {
-	public int threeSumClosest(ArrayList<Integer> a, int b) {
-	    if(a.size()<3) return -1;
-	    int sum = a.get(0)+a.get(1)+a.get(2);
-	    Collections.sort(a);
-	    int left =0;
-	    int right=0;
-	    int gap = Math.abs(sum-b);
-	    for(int i = 0;i<a.size()-2;i++){
-	        left =i+1;
-	        right = a.size()-1;
-	        while(left<right){
-	            int tmp = a.get(i)+a.get(left)+a.get(right);
-	          //  if(tmp==b) return b;
-	            int newgap = Math.abs(tmp-b);
-	            if(newgap<gap){
-	                //System.out.println("sum:"+sum);
-	                sum = tmp;
-	                gap = newgap;
-	                //left++;
-	            }
-	            if(sum<b){
-	                
-	             left++;   
-	            }else{
-	                right--;
-	            }
-	            
-	        }
-	        
-	    }
-	    return sum;
-	   
-	}
+    public int threeSumClosest(ArrayList<Integer> a, int b) {
+        if(a.size()<3) return -1;
+        Collections.sort(a);
+        int res = a.get(0)+a.get(1)+a.get(2);
+        if(a.size()==3) return res;
+        int sum;
+        for(int i = 0;i<a.size()-2;i++){
+            int left =i+1;
+            int right = a.size()-1;
+            int num = b-a.get(i);
+            
+            while(left<right){
+                sum = a.get(left)+a.get(right);
+                if(sum==num){
+                    return b;
+                }else if(sum>num){
+                    right--;
+                }else{
+                    left++;
+                }
+                
+               int newdiff = Math.abs(sum-num);
+               int olddiff = Math.abs(res-b);
+               if(newdiff<olddiff){
+                   res = sum+a.get(i);
+               }
+                
+            }
+            
+            
+        }
+        return res;
+       
+    }
 }
