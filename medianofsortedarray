@@ -1,0 +1,39 @@
+public class Solution {
+    // DO NOT MODIFY BOTH THE LISTS
+    public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
+
+        if(a.size()>b.size()){
+            return findMedianSortedArrays(b,a);
+        }
+
+        int length = a.size()+b.size();
+
+        int low =0;
+        int high = a.size();
+        
+        
+        while(low<=high){
+
+            int i = (low+high)/2;
+            int j = (length+1)/2 -i;
+
+            int aleftmax = (i==0)?Integer.MIN_VALUE:a.get(i-1);
+            int arightmin = (i==a.size())?Integer.MAX_VALUE:a.get(i);
+            int bleftmax =(j==0 )?Integer.MAX_VALUE:b.get(j-1);
+            int brightmin =  (j==b.size())?Integer.MAX_VALUE:b.get(j);
+     //
+            if(bleftmax>arightmin){
+                low =i+1;
+            }else if(aleftmax>brightmin){
+                high=i-1;
+            } else {
+                if(length%2 ==0){
+                    return (double)(Math.max(aleftmax,bleftmax)+ Math.min(arightmin,brightmin))/2;
+                }else{
+                    return Math.max(aleftmax,bleftmax);
+                }
+            }
+        }
+        return -1;
+    }
+}
